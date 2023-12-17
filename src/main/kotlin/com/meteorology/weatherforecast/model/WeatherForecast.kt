@@ -7,6 +7,7 @@ import jakarta.persistence.GenerationType.IDENTITY
 import jakarta.persistence.Id
 import java.time.LocalDate
 import java.time.LocalDateTime
+import kotlin.properties.Delegates
 
 @Entity(name = "weatherforecast")
 class WeatherForecast(
@@ -39,6 +40,16 @@ class WeatherForecast(
     @field:Column(name = "sunset")
     val sunset: String
 ) {
+
+    @Transient
+    var average: Int? = null
+
+    @Transient
+    var max: Int? = null
+
+    @Transient
+    var min: Int? = null
+
     fun isUpToDate(): Boolean {
         val dateTimeNow = LocalDate.now()
         return this.dateTime.toLocalDate().equals(dateTimeNow)

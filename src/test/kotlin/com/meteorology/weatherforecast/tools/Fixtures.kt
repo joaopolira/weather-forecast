@@ -2,9 +2,11 @@ package com.meteorology.weatherforecast.tools
 
 import com.meteorology.weatherforecast.client.HGWeatherForecastResponse
 import com.meteorology.weatherforecast.client.HGWeatherForecastResultsResponse
+import com.meteorology.weatherforecast.client.HgForecastResponse
 import com.meteorology.weatherforecast.model.WeatherForecast
 import com.meteorology.weatherforecast.model.WeatherForecastGroup
 import java.time.LocalDateTime
+import kotlin.math.max
 
 internal const val INT_ZERO = 0
 internal const val INT_ONE = 1
@@ -18,7 +20,14 @@ internal fun createHGWeatherForecastResponse(): HGWeatherForecastResponse {
             humidity = 50,
             rain = 0.0,
             sunrise = "5:10 am",
-            sunset = "6:25 pm"
+            sunset = "6:25 pm",
+            forecast = listOf(
+                HgForecastResponse(
+                    date = "17/12",
+                    max = 35,
+                    min = 23
+                )
+            )
         )
     return HGWeatherForecastResponse(results = results)
 }

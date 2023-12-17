@@ -20,12 +20,23 @@ class GetTemperatureCityService(
         val weatherForecastGroup = weatherForecastRepository.findByCity(city = city)
         if (weatherForecastGroup.upToDateForecastIsPresent) {
             logger.info("finished")
-            return weatherForecastGroup.upToDateForecast
+            return weatherForecastGroup
+                .upToDateForecast
+                .apply {
+                    this.average = weatherForecastGroup.average
+                    this.max = weatherForecastGroup.max
+                    this.min = weatherForecastGroup.min
+                }
         }
         val hgForecastResponse = hgForecastClient.getWeatherForecastByCity(city = city)
         val weatherForecast = hgForecastResponse.toWeatherForecast()
         weatherForecastRepository.save(weatherForecast = weatherForecast)
         logger.info("finished")
         return weatherForecast
+            .apply {
+                this.average = hgForecastResponse.average
+                this.max = hgForecastResponse.max
+                this.min = hgForecastResponse.min
+            }
     }
 }

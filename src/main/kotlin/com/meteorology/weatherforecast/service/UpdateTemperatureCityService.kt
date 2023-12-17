@@ -16,7 +16,7 @@ class UpdateTemperatureCityService(
         private val logger = LoggerFactory.getLogger(this::class.java)
     }
 
-    @Scheduled(cron = "0 0/1 * 1/1 * ?")
+    @Scheduled(cron = "0 0 * * * *")
     fun update() {
         val cities = weatherForecastRepository.findCities()
         if (cities.isNotEmpty) {
