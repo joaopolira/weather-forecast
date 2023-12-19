@@ -18,7 +18,7 @@ permissions:
 
 jobs:
   build:
-    name: Build Application
+    name: Building Application
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
@@ -35,11 +35,6 @@ jobs:
       uses: gradle/gradle-build-action@bd5760595778326ba7f1441bcf7e88b49de61a25 # v2.6.0
       with:
         arguments: clean build -x test
-
-    - name: Test with Gradle
-      uses: gradle/gradle-build-action@bd5760595778326ba7f1441bcf7e88b49de61a25 # v2.6.0
-      with:
-        arguments: test
 
   test:
     name: Testing Application
@@ -61,7 +56,7 @@ jobs:
         arguments: test
 
   push_to_registry:
-    needs: [build, test]
+    needs: [build,test]
     name: Push Docker image to Docker Hub
     runs-on: ubuntu-latest
     steps:
