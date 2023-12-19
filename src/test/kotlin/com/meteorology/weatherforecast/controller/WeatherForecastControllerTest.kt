@@ -123,15 +123,6 @@ class WeatherForecastControllerTest : PostgresSQLContainerDefinition {
                 .response
                 .status
 
-
-        val requestHealth =
-            get("/actuator/health", city)
-                .contentType(APPLICATION_JSON)
-
-        val resp = mockMvc.perform(requestHealth)
-            .andReturn()
-            .response
-
         val weatherForecast = dao.findByCity(city = city)
         assertAll(
             { assertEquals(0, weatherForecast.size) },
