@@ -82,7 +82,7 @@ jobs:
         run: ls -R .
 
       - name: List contents of build/libs directory
-        run: ls -R .build/libs
+        run: ls -R ./build/libs
 
       - name: Build and push Docker image
         uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
