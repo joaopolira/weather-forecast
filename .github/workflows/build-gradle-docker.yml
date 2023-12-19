@@ -18,6 +18,7 @@ permissions:
 
 jobs:
   build-and-test:
+    name: Build and Testing Application
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
@@ -26,12 +27,15 @@ jobs:
       with:
         java-version: '21'
         distribution: 'temurin'
+
     - name: Run chmod to make gradlew executable
       run: chmod +x ./gradlew
+
     - name: Build with Gradle
       uses: gradle/gradle-build-action@bd5760595778326ba7f1441bcf7e88b49de61a25 # v2.6.0
       with:
         arguments: clean build
+
     - name: Test with Gradle
       uses: gradle/gradle-build-action@bd5760595778326ba7f1441bcf7e88b49de61a25 # v2.6.0
       with:
@@ -55,6 +59,11 @@ jobs:
         uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
         with:
           images: my-docker-hub-namespace/my-docker-hub-repository
+
+      - name: Build application package
+        uses: gradle/gradle-build-action@bd5760595778326ba7f1441bcf7e88b49de61a25 # v2.6.0
+        with:
+          arguments: clean build
 
       - name: Build and push Docker image
         uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
